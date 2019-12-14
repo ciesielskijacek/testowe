@@ -8,32 +8,29 @@ namespace Test
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Analyze analyze = new Analyze();
+            List <string> filesX = analyze.Run("c:\\users\\Jacek\\source");
         }
     }
 
 
     class Analyze
     {
-        public void Run(string aPath)
+        public List<string> Run(string aPath)
         {
-            List<string> filenames= new List<string>();
-            MakeAnalyze(aPath, filenames);
-
-
-
-
-
-
+            return MakeAnalyze(aPath);
         }
-        public void MakeAnalyze<string>(string aPath, List<string> aFileNames)
+        public List<string> MakeAnalyze(string aPath)
         {
             string[] directories = System.IO.Directory.GetDirectories(aPath);
+            List<string> filenames = new List<string>();
+            filenames.AddRange(System.IO.Directory.GetFiles(aPath));
             foreach (var x in directories)
-            {
-                MakeAnalyze(x);
-
+            {             
+                filenames.AddRange (MakeAnalyze(x));
             }
 
+            return filenames;
 
         }
     }
